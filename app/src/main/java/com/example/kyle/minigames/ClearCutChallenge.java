@@ -109,9 +109,14 @@ public class ClearCutChallenge extends GameActivity {
 
         lightValues = new ArrayList<Light>();
         lightValues.add(player1TargetLight);
-        lightValues.add(player2TargetLight);
         lightValues.add(player1LogLight);
         lightValues.add(player2LogLight);
+        lightValues.add(player2TargetLight);
+
+        p1TargetIndex = lightValues.indexOf(player1TargetLight);
+        p2TargetIndex = lightValues.indexOf(player2TargetLight);
+        p1LogIndex = lightValues.indexOf(player1LogLight);
+        p2LogIndex = lightValues.indexOf(player2LogLight);
 
         lights = new LightModel(lightValues, false);
         if(stripActive) {
@@ -151,6 +156,13 @@ public class ClearCutChallenge extends GameActivity {
         if (player1Log > 1) {
             if(player1Log == player1Target) {
                 lightValues.get(p1TargetIndex).setColor(0, 255, 0);
+                lightValues.remove(p1TargetIndex);
+                lightValues.remove(p1LogIndex);
+                lightValues.add(p1TargetIndex, player1LogLight);
+                lightValues.add(p1LogIndex, player1TargetLight);
+                int swap = p1LogIndex;
+                p1LogIndex = p1TargetIndex;
+                p1TargetIndex = swap;
             }
             // TODO change target back to red from green
             player1Log--;
@@ -159,6 +171,14 @@ public class ClearCutChallenge extends GameActivity {
         if (player2Log < 32) {
             if(player2Log == player2Target) {
                 lightValues.get(p2TargetIndex).setColor(0, 255, 0);
+                lightValues.remove(p2TargetIndex);
+                lightValues.remove(p2LogIndex);
+                lightValues.add(p2LogIndex, player2TargetLight);
+                lightValues.add(p2TargetIndex, player2LogLight);
+
+                int swap = p2LogIndex;
+                p2LogIndex = p2TargetIndex;
+                p2TargetIndex = swap;
             }
             // TODO change target back to red from green
             player2Log++;
@@ -173,7 +193,7 @@ public class ClearCutChallenge extends GameActivity {
         if (clicks == 2) { // both players have attempted to chop the log
             // TODO game is over
             String winner = (player1Score > player2Score) ? "Player 1" : "Player 2";
-            int score = Math.max(player1Score, player1Score);
+            int score = (player1Score > player2Score) ? player1Score : player2Score;
             clicks = 0;
             endGame(winner, score);
             //restartGame();

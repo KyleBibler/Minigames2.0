@@ -29,7 +29,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/score"
             android:textSize="30dp"
-            android:id="@+id/player2ScoreView" />
+            android:id="@+id/player1ScoreView" />
 
         <TextView
             android:layout_width="match_parent"
@@ -37,7 +37,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/score"
             android:textSize="30dp"
-            android:id="@+id/player1ScoreView" />
+            android:id="@+id/player2ScoreView" />
 
         <Button
             android:layout_width="match_parent"
