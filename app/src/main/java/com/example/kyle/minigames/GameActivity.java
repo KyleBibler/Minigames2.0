@@ -75,13 +75,14 @@ public abstract class GameActivity extends Activity implements SensorEventListen
         }
     }
 
-    protected void gameOver(String playerName, final int score) {
+    protected void gameOver(String playerName, int score) {
+        final int finalScore = score;
         new AlertDialog.Builder(this)
                 .setTitle(playerName + " wins!")
-                .setMessage(playerName + " won with a score of: " + score)
+                .setMessage(playerName + " won with a score of: " + finalScore)
                 .setPositiveButton("Share Score", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        shareOnFacebook(score);
+                        shareOnFacebook(finalScore);
                     }
                 })
                 .setNegativeButton("Return to Game", new DialogInterface.OnClickListener() {

@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
 
 import com.example.kyle.minigames.Light;
@@ -215,6 +216,9 @@ public class LightStrip extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void onWindowFocusChanged(boolean hasWindowFocus) {
         if (!hasWindowFocus) thread.pause();
+        else {
+            thread.setRunning(true);
+        }
     }
 
     /*
@@ -243,6 +247,7 @@ public class LightStrip extends SurfaceView implements SurfaceHolder.Callback {
         // it might touch the Surface after we return and explode
         boolean retry = true;
         thread.setRunning(false);
+        thread.queue.add(new LightModel(new ArrayList<Light>(), true));
         while (retry) {
             try {
                 thread.join();

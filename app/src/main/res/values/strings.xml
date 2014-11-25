@@ -15,5 +15,8 @@
     <string name="set_ip_address">Set IP Address</string>
     <string name="http">http://</string>
     <string name="rpi">/rpi</string>
+    <string name="btn_player2">Player 2</string>
+    <string name="score">Score</string>
+    <string name="btn_player1">Player 1</string>
 
 </resources>

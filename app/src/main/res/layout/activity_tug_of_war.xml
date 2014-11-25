@@ -45,6 +45,10 @@
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight="0.2">
+        <com.example.kyle.minigames.LightStrip
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:id="@+id/strip" />
 
 
     </LinearLayout>

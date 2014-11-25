@@ -1,6 +1,5 @@
 package com.example.kyle.minigames;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,18 +38,19 @@ public class TugOfWar extends GameActivity {
         urlFull = "";
         score = (TextView) findViewById(R.id.scoreView);
 
+
+
+
+        queue = new ArrayBlockingQueue<LightModel>(16);
+        strip = (LightStrip) findViewById(R.id.strip);
+        strip.createThread(queue);
+
         restartGame();
-
-
-//        queue = new ArrayBlockingQueue<LightModel>(16);
-//        strip = (LightStrip) findViewById(R.id.strip);
-//        strip.createThread(queue);
-//
-//        queue.add(lights);
     }
 
     @Override
     protected void restartGame() {
+        queue.clear();
         bluepoint = 17;
         clicks = 0;
         score.setText("Red: " + (bluepoint - 1) + "\t\tBlue: " + (33 - bluepoint));
@@ -62,6 +62,7 @@ public class TugOfWar extends GameActivity {
             startGameStrip(urlFull);
         }
         //TODO LIGHT STRIP QUEUE GOES HERE
+        queue.add(lights);
     }
 
     public void startGameStrip(String url) {
@@ -110,6 +111,7 @@ public class TugOfWar extends GameActivity {
             }
         }
         //TODO ADD LIGHTS TO QUEUE
+        queue.add(lights);
     }
 
 
