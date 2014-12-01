@@ -14,6 +14,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import android.content.pm.Signature;
 import android.view.View;
+import android.widget.TextView;
 
 import com.facebook.AppEventsLogger;
 import com.facebook.Session;
@@ -31,8 +32,9 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
+//        TextView hashText = (TextView) findViewById(R.id.hashText);
+//        String hash = "KeyHash not found";
+//
 //        try{
 //            PackageInfo info = getPackageManager().getPackageInfo(
 //                    "com.example.kyle.minigames", PackageManager.GET_SIGNATURES);
@@ -40,14 +42,14 @@ public class MainActivity extends Activity {
 //            for (Signature signature : info.signatures) {
 //                MessageDigest md = MessageDigest.getInstance("SHA");
 //                md.update(signature.toByteArray());
-//                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-//
+//                hash = ("KeyHash:" + Base64.encodeToString(md.digest(), Base64.DEFAULT));
 //            }
 //        } catch (PackageManager.NameNotFoundException e) {
 //
 //        } catch (NoSuchAlgorithmException e) {
 //
 //        }
+//        hashText.setText(hash);
 
         uiHelper = new UiLifecycleHelper(this, null);
         uiHelper.onCreate(savedInstanceState);
@@ -137,10 +139,6 @@ public class MainActivity extends Activity {
     public void onDestroy() {
         super.onDestroy();
         uiHelper.onDestroy();
-        session = Session.getActiveSession();
-        if (session != null) {
-            session.closeAndClearTokenInformation();
-        }
     }
 
     private void logHash() {

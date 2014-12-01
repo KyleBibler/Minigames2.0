@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Minigames</string>
-    <string name="facebook_app_id">1507559206197809</string>
+    <string name="facebook_app_id">1510588855892720</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_tug_of_war">TugOfWar</string>

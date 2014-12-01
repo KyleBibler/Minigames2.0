@@ -58,6 +58,7 @@ public class ClearCutChallenge extends GameActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clear_cut_challenge);
+        game = "Clear Cut Challenge";
 
 
 
@@ -141,7 +142,9 @@ public class ClearCutChallenge extends GameActivity {
         player1Score = score;
         score1.setText("Score: " + score);
         score1.setEnabled(false);
+        view.setEnabled(false);
         clicks++;
+
     }
 
     public void onPlayer2Clicked(View view) {
@@ -149,6 +152,7 @@ public class ClearCutChallenge extends GameActivity {
         player2Score = score;
         score2.setText("Score: " + score);
         score2.setEnabled(false);
+        view.setEnabled(false);
         clicks++;
     }
 

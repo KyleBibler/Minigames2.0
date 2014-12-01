@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.hardware.Sensor;
@@ -11,6 +12,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.facebook.AppEventsLogger;
 import com.facebook.Session;
@@ -31,7 +33,7 @@ public abstract class GameActivity extends Activity implements SensorEventListen
 
     public static final String MyPREFERENCES = "MyPrefs" ;
     public static final String IP = "ipKey";
-    private UiLifecycleHelper uiHelper;
+    protected UiLifecycleHelper uiHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,9 +94,26 @@ public abstract class GameActivity extends Activity implements SensorEventListen
                 }).show();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        uiHelper.onActivityResult(requestCode, resultCode, data, new FacebookDialog.Callback() {
+            @Override
+            public void onError(FacebookDialog.PendingCall pendingCall, Exception error, Bundle data) {
+                Log.e("Activity", String.format("Error: %s", error.toString()));
+            }
+
+            @Override
+            public void onComplete(FacebookDialog.PendingCall pendingCall, Bundle data) {
+                Log.i("Activity", "Success!");
+            }
+        });
+    }
+
     private void shareOnFacebook(int score) {
         FacebookDialog shareDialog = new FacebookDialog.ShareDialogBuilder(this)
-                .setLink("https://developers.facebook.com/apps/1507559206197809/dashboard/")
+                .setLink("https://developers.facebook.com/apps/1510588855892720/dashboard/")
                 .setCaption("I just won a game of " + game + " with a score of " + score)
                 .build();
         uiHelper.trackPendingDialogCall(shareDialog.present());
@@ -102,12 +121,7 @@ public abstract class GameActivity extends Activity implements SensorEventListen
 
     protected abstract void restartGame();
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        uiHelper.onDestroy();
-        sm.unregisterListener(this, s);
-    }
+
 
     @Override
     public void onSensorChanged(SensorEvent event) {
@@ -125,16 +139,19 @@ public abstract class GameActivity extends Activity implements SensorEventListen
     protected void onResume() {
         super.onResume();
         uiHelper.onResume();
-        // Logs 'install' and 'app activate' App Events.
-        AppEventsLogger.activateApp(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         uiHelper.onPause();
-        // Logs 'app deactivate' App Event.
-        AppEventsLogger.deactivateApp(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        uiHelper.onDestroy();
+        sm.unregisterListener(this, s);
     }
 }
 
