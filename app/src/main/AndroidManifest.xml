@@ -38,15 +38,6 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
-
-        <activity
-            android:name="com.example.kyle.minigames.Settings"
-            android:label="@string/title_activity_settings"
-            android:parentActivityName="com.example.kyle.minigames.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.kyle.minigames.MainActivity" />
-        </activity>
         <activity
             android:name="com.example.kyle.minigames.Preferences"
             android:label="@string/title_activity_preferences"
