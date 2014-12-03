@@ -1,53 +1,54 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_padding"
+    android:paddingLeft="@dimen/activity_horizontal_padding"
+    android:paddingRight="@dimen/activity_horizontal_padding"
+    android:paddingTop="@dimen/activity_vertical_padding"
     tools:context="edu.virginia.cs4720.ledian.minigames.TugOfWar">
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:orientation="vertical"
         android:layout_weight="0.8"
-        android:id="@+id/btnLayout">
+        android:orientation="vertical">
 
         <Button
+            android:background="@drawable/btn_blue_selector"
+            android:id="@+id/player1Button"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.45"
-            android:text="@string/btn_player1"
-            android:textSize="60dp"
-            android:id="@+id/player1Btn"
             android:onClick="onPlayer1Clicked"
-            android:background="@drawable/btn_blue_selector" />
+            android:text="@string/player1"
+            android:textSize="60dp" />
 
         <TextView
+            android:id="@+id/player1ScoreView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/score"
-            android:textSize="30dp"
-            android:id="@+id/player1ScoreView" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="30dp" />
 
         <TextView
+            android:id="@+id/player2ScoreView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/score"
-            android:textSize="30dp"
-            android:id="@+id/player2ScoreView" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="30dp" />
 
         <Button
+            android:background="@drawable/btn_red_selector"
+            android:id="@+id/player2Button"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:text="@string/btn_player2"
-            android:id="@+id/player2Btn"
-            android:textSize="60dp"
+            android:layout_weight="0.45"
             android:onClick="onPlayer2Clicked"
-            android:background="@drawable/btn_red_selector"
-            android:layout_weight="0.45" />
+            android:text="@string/player2"
+            android:textSize="60dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -56,9 +57,9 @@
         android:layout_weight="0.2">
 
         <com.example.kyle.minigames.LightStrip
-            android:layout_height="fill_parent"
+            android:id="@+id/strip"
             android:layout_width="fill_parent"
-            android:id="@+id/strip" />
+            android:layout_height="fill_parent" />
     </LinearLayout>
 
 </LinearLayout>

@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -35,16 +36,14 @@ public class ClearCutChallenge extends GameActivity {
     private int p2LogIndex = 3;
 
     private LightModel lights;
-    private String url;
-    private String urlFull;
     private ArrayList<Light> lightValues;
+
     private TextView score1;
     private TextView score2;
+    Button player1Button;
+    Button player2Button;
 
     private boolean gameStopped;
-
-    public static final String MyPREFERENCES = "MyPrefs" ;
-    public static final String IP = "ipKey";
 
     private LightStrip strip;
     private BlockingQueue<LightModel> queue;
@@ -52,14 +51,11 @@ public class ClearCutChallenge extends GameActivity {
     private Handler handler;
     private Runnable runnable;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clear_cut_challenge);
         game = "Clear Cut Challenge";
-
-
 
         // call updateLogs every 1/4 second
         handler = new Handler();
@@ -106,6 +102,9 @@ public class ClearCutChallenge extends GameActivity {
 
         score1 = (TextView) findViewById(R.id.player1ScoreView);
         score2 = (TextView) findViewById(R.id.player2ScoreView);
+
+        player1Button = (Button) findViewById(R.id.player1Button);
+        player2Button = (Button) findViewById(R.id.player2Button);
 
         lightValues = new ArrayList<Light>();
         lightValues.add(player1TargetLight);
