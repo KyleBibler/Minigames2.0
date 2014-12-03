@@ -41,7 +41,7 @@ public class ClearCutChallenge extends GameActivity {
     private TextView score1;
     private TextView score2;
 
-    private boolean gameStopped;
+    private boolean gameStopped, player1Clicked, player2Clicked;
 
     public static final String MyPREFERENCES = "MyPrefs" ;
     public static final String IP = "ipKey";
@@ -89,7 +89,10 @@ public class ClearCutChallenge extends GameActivity {
     protected void restartGame() {
         queue.clear();
         gameStopped = false;
-        clicks = 0;
+
+        player1Clicked = false;
+        player2Clicked = false;
+
         player1Target = 4;
         player2Target = 29;
         player1Score = 0;
@@ -142,7 +145,7 @@ public class ClearCutChallenge extends GameActivity {
         score1.setText("Score: " + score);
         score1.setEnabled(false);
         view.setEnabled(false);
-        clicks++;
+        player1Clicked = true;
 
     }
 
@@ -152,7 +155,7 @@ public class ClearCutChallenge extends GameActivity {
         score2.setText("Score: " + score);
         score2.setEnabled(false);
         view.setEnabled(false);
-        clicks++;
+        player2Clicked = true;
     }
 
     private void updateLogs() {
@@ -192,12 +195,19 @@ public class ClearCutChallenge extends GameActivity {
         if(stripActive) {
             new ApiTask().execute(urlFull, lights.serialize());
         }
+        if(player1Log <= 1 && !player1Clicked) {
+            player1Score = 0;
+            player1Clicked = true;
+        }
+        if (player2Log >= 32 && !player2Clicked) {
+            player2Score = 0;
+            player2Clicked = true;
+        }
 
-        if (clicks == 2) { // both players have attempted to chop the log
+        if (player1Clicked && player2Clicked) { // both players have attempted to chop the log
             // TODO game is over
             String winner = (player1Score > player2Score) ? "Player 1" : "Player 2";
             int score = (player1Score > player2Score) ? player1Score : player2Score;
-            clicks = 0;
             endGame(winner, score);
             //restartGame();
         }

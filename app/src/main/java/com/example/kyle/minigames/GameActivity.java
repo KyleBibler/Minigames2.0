@@ -87,6 +87,7 @@ public abstract class GameActivity extends Activity implements SensorEventListen
                 })
                 .setNegativeButton("Return to Game", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        restartGame();
                         //returns to game
                     }
                 }).show();
@@ -95,7 +96,7 @@ public abstract class GameActivity extends Activity implements SensorEventListen
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        restartGame();
         uiHelper.onActivityResult(requestCode, resultCode, data, new FacebookDialog.Callback() {
             @Override
             public void onError(FacebookDialog.PendingCall pendingCall, Exception error, Bundle data) {
@@ -146,7 +147,7 @@ public abstract class GameActivity extends Activity implements SensorEventListen
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         uiHelper.onDestroy();
         sm.unregisterListener(this, s);

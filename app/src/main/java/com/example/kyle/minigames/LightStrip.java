@@ -121,11 +121,11 @@ public class LightStrip extends SurfaceView implements SurfaceHolder.Callback {
                                 Color.WHITE},
                                     new float[] {0.0f, 0.4f, 0.4f + 0.6f *(float)(prevLight.getIntensity())}, Shader.TileMode.CLAMP));
                         else
-                            p.setShader(new RadialGradient(cx, cy, radius, new int[] {
+                            p.setShader(new RadialGradient(cx, cy, radius, new int[]{
                                     Color.BLACK,
                                     Color.BLACK,
                                     backgroundColor},
-                                    new float[] {0.0f, 0.4f, 0.4f}, Shader.TileMode.CLAMP));
+                                    new float[]{0.0f, 0.4f, 0.4f}, Shader.TileMode.CLAMP));
                             p.setARGB(255, 0, 0, 0);
                     } else {
                         if (!pastFirstIndex) {
@@ -222,6 +222,8 @@ public class LightStrip extends SurfaceView implements SurfaceHolder.Callback {
     public void surfaceCreated(SurfaceHolder holder) {
         // start the thread here so that we don't busy-wait in run()
         // waiting for the surface to be created
+        if (thread.getState() == Thread.State.TERMINATED)
+            thread = new LightStripThread(getHolder(), context, thread.queue);
         thread.setRunning(true);
         thread.start();
     }
