@@ -15,15 +15,12 @@ public class TugOfWar extends GameActivity {
 
     private int bluepoint, clicks;
     private LightModel lights;
-    private String url;
-    private String urlFull;
     private ArrayList<Light> lightValues;
     private TextView score;
     private ArrayList<Light> allBlue;
     private LightModel blueLights;
 
     private LightStrip strip;
-    private LightStrip.LightStripThread lightStripThread;
     private BlockingQueue<LightModel> queue;
 
     @Override
@@ -31,14 +28,9 @@ public class TugOfWar extends GameActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tug_of_war);
         game = "Tug of War";
-
         bluepoint = 17;
         clicks = 0;
         score = (TextView) findViewById(R.id.scoreView);
-
-
-
-
         queue = new ArrayBlockingQueue<LightModel>(16);
         strip = (LightStrip) findViewById(R.id.strip);
         strip.createThread(queue);

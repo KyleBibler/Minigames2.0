@@ -20,7 +20,6 @@ import com.facebook.widget.FacebookDialog;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-
 public class MainActivity extends Activity {
 
     private UiLifecycleHelper uiHelper;
@@ -69,6 +68,11 @@ public class MainActivity extends Activity {
 
     public void onClearCutClicked(View view) {
         Intent i = new Intent(this, ClearCutChallenge.class);
+        startActivity(i);
+    }
+
+    public void onColorSequenceClicked(View view) {
+        Intent i = new Intent(this, ColorSequence.class);
         startActivity(i);
     }
 
