@@ -6,7 +6,10 @@ package com.example.kyle.minigames;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.RadialGradient;
+import android.graphics.Shader;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -15,9 +18,6 @@ import android.view.SurfaceView;
 
 import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
-
-import com.example.kyle.minigames.Light;
-import com.example.kyle.minigames.LightModel;
 
 /**
  * Created by Alex on 11/9/2014.
@@ -28,13 +28,13 @@ public class LightStrip extends SurfaceView implements SurfaceHolder.Callback {
         private Bitmap background;          // holds current screen to be drawn
         private int canvasHeight = 1;   // current height
         private int canvasWidth = 1;    // current width
-        private int padding = 3;        // padding around each light
         private LightModel lights;      // the light strip
         private final int numLights = 32;
         private final SurfaceHolder holder;   //
         private Context context;        //
         private boolean canRun;
         private BlockingQueue<LightModel> queue;
+        private final int backgroundColor = Color.WHITE;
 
         public LightStripThread(SurfaceHolder holder, Context context, BlockingQueue<LightModel> queue) {
             this.holder = holder;
@@ -44,7 +44,7 @@ public class LightStrip extends SurfaceView implements SurfaceHolder.Callback {
             background = Bitmap.createBitmap(canvasWidth, canvasHeight, Bitmap.Config.ARGB_8888);
 
             Canvas c = new Canvas(background);
-            c.drawColor(0xffffffff);
+            c.drawColor(backgroundColor);
         }
 
         /**
@@ -86,19 +86,19 @@ public class LightStrip extends SurfaceView implements SurfaceHolder.Callback {
 
         public void doDraw(Canvas canvas) {
             // draw background, similar to clearing the screen
-            canvas.drawColor(0xffffffff);
+            canvas.drawColor(backgroundColor);
 
             // draw lights
             if (lights != null && lights.getLights().size() > 0) {
                 int radius;
                 float cx, cy;
                 if(canvasWidth > canvasHeight) {
-                    radius = (canvasWidth - 2 * padding * numLights) / (2 * numLights);
-                    cx = padding + radius;
+                    radius = canvasWidth / (2 * numLights);
+                    cx = radius;
                     cy = canvasHeight / 2;
                 } else {
-                    radius = ((canvasHeight / numLights) - 2 * padding) / 2;
-                    cy = padding + radius;
+                    radius = canvasHeight / (2 * numLights);
+                    cy = radius;
                     cx = canvasWidth / 2;
                 }
                 // make paint
@@ -114,19 +114,29 @@ public class LightStrip extends SurfaceView implements SurfaceHolder.Callback {
                 boolean pastFirstIndex = false;
                 for (int i = 1; i <= numLights; i++) {
                     if (i < idOfLight) {
-                        if (propagate && pastFirstIndex) {
-                            p.setARGB((int) (prevLight.getIntensity() * 255), prevLight.getRed(), prevLight.getGreen(), prevLight.getBlue());
-                            canvas.drawCircle(cx, cy, radius, p);
-                        } else {
+                        if (propagate && pastFirstIndex)
+                            p.setShader(new RadialGradient(cx, cy, radius, new int[] {
+                                Color.argb(255, prevLight.getRed(), prevLight.getGreen(), prevLight.getBlue()),
+                                Color.argb((int) (prevLight.getIntensity() * 255), prevLight.getRed(), prevLight.getGreen(), prevLight.getBlue()),
+                                Color.WHITE},
+                                    new float[] {0.0f, 0.4f, 0.4f + 0.6f *(float)(prevLight.getIntensity())}, Shader.TileMode.CLAMP));
+                        else
+                            p.setShader(new RadialGradient(cx, cy, radius, new int[] {
+                                    Color.BLACK,
+                                    Color.BLACK,
+                                    backgroundColor},
+                                    new float[] {0.0f, 0.4f, 0.4f}, Shader.TileMode.CLAMP));
                             p.setARGB(255, 0, 0, 0);
-                            canvas.drawCircle(cx, cy, radius, p);
-                        }
                     } else {
                         if (!pastFirstIndex) {
                             pastFirstIndex = true;
                         }
-                        p.setARGB((int) (l.getIntensity() * 255), l.getRed(), l.getGreen(), l.getBlue());
-                        canvas.drawCircle(cx, cy, radius, p);
+                        p.setShader(new RadialGradient(cx, cy, radius, new int[] {
+                                Color.argb(255, l.getRed(), l.getGreen(), l.getBlue()),
+                                Color.argb((int) (l.getIntensity() * 255), l.getRed(), l.getGreen(), l.getBlue()),
+                                backgroundColor},
+                                new float[] {0.0f, 0.4f, 0.4f + 0.6f *(float)(l.getIntensity())}, Shader.TileMode.CLAMP));
+
                         prevLight = l;
                         lightId++;
                         if (lightId >= lights.getLights().size()) {
@@ -136,29 +146,13 @@ public class LightStrip extends SurfaceView implements SurfaceHolder.Callback {
                             idOfLight = l.getId();
                         }
                     }
-                    if (canvasWidth > canvasHeight) {
-                        cx += 2 * radius + 2 * padding;
-                    }
-                    else {
-                        cy += 2 * radius + 2 * padding;
-                    }
+                    canvas.drawCircle(cx, cy, radius, p);
+                    if (canvasWidth > canvasHeight)
+                        cx += 2 * radius;
+                    else
+                        cy += 2 * radius;
                 }
             }
-        }
-
-        /**
-         * Dump game state to the provided Bundle. Typically called when the
-         * Activity is being suspended.
-         *
-         * @return Bundle with this view's state
-         */
-        public Bundle saveState(Bundle map) {
-            synchronized (holder) {
-                if (map != null) {
-                    // fill with environment state
-                }
-            }
-            return map;
         }
 
         /* Callback invoked when the surface dimensions change. */

@@ -27,8 +27,8 @@
         android:layout_toRightOf="@+id/space" />
 
     <Space
-        android:layout_width="20px"
-        android:layout_height="20px"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:id="@+id/space"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
@@ -36,7 +36,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="40dp"
+        android:textSize="40sp"
         android:text="Game Select"
         android:id="@+id/textView5"
         android:layout_above="@+id/button"
@@ -54,7 +54,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:text="@string/tug_of_war"
         android:id="@+id/textView6"
         android:layout_below="@+id/button"
@@ -64,7 +64,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:text="@string/clear_cut_challenge"
         android:id="@+id/textView7"
         android:layout_below="@+id/button2"
@@ -74,7 +74,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="100dp"
+        android:textSize="100sp"
         android:text="Minigames"
         android:id="@+id/textView8"
         android:layout_alignParentTop="true"

@@ -14,8 +14,6 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.facebook.AppEventsLogger;
-import com.facebook.Session;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.widget.FacebookDialog;
 

@@ -19,6 +19,8 @@ public class TugOfWar extends GameActivity {
     private String urlFull;
     private ArrayList<Light> lightValues;
     private TextView score;
+    private ArrayList<Light> allBlue;
+    private LightModel blueLights;
 
     private LightStrip strip;
     private LightStrip.LightStripThread lightStripThread;
@@ -32,10 +34,6 @@ public class TugOfWar extends GameActivity {
 
         bluepoint = 17;
         clicks = 0;
-        cheating = false;
-        stripActive = false;
-        url = ""; //needs changing
-        urlFull = "";
         score = (TextView) findViewById(R.id.scoreView);
 
 
@@ -58,6 +56,11 @@ public class TugOfWar extends GameActivity {
         lightValues.add(new Light(1, 255, 0, 0, 0.7));
         lightValues.add(new Light(bluepoint, 0, 0, 255, 0.7));
         lights = new LightModel(lightValues, true);
+
+        allBlue = new ArrayList<Light>(1);
+        allBlue.add(new Light(1, 0, 0, 255, 0.7));
+        blueLights = new LightModel(allBlue, true);
+
         if(stripActive) {
             startGameStrip(urlFull);
         }
@@ -100,8 +103,14 @@ public class TugOfWar extends GameActivity {
     }
 
     private void playerBtnClicked() {
-        lightValues.get(1).setId(bluepoint);
-        lights = new LightModel(lightValues, true);
+        // if-else should fix issue where one red
+        // light stays on when blue is about to win
+        if (bluepoint == 1) {
+            lights = blueLights;
+        } else {
+            lightValues.get(1).setId(bluepoint);
+            lights = new LightModel(lightValues, true);
+        }
         score.setText("Red: " + (bluepoint - 1) + "\t\tBlue: " + (33 - bluepoint));
         if(stripActive) {
             clicks++;

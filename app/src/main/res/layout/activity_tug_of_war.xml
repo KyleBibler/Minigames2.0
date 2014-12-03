@@ -21,7 +21,7 @@
             android:textSize="60dp"
             android:id="@+id/player1Btn"
             android:onClick="onPlayer1Clicked"
-            android:background="#b21908ff" />
+            android:background="@drawable/btn_blue_selector" />
 
         <TextView
             android:layout_width="match_parent"
@@ -37,7 +37,7 @@
             android:textSize="60dp"
             android:id="@+id/player2Btn"
             android:onClick="onPlayer2Clicked"
-            android:background="#9aff0000"
+            android:background="@drawable/btn_red_selector"
             android:layout_weight="0.45" />
     </LinearLayout>
 
