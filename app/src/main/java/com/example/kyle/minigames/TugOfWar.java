@@ -71,7 +71,6 @@ public class TugOfWar extends GameActivity {
             //Blue wins
             score.setText("BLUE WINS");
             gameOver("Player 1", 32);
-            restartGame();
             return;
         } else {
             bluepoint--;
@@ -85,7 +84,6 @@ public class TugOfWar extends GameActivity {
             //Red wins
             score.setText("RED WINS");
             gameOver("Player 2", 32);
-            restartGame();
             return;
         } else {
             bluepoint++;
