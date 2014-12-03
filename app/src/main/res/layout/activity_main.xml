@@ -1,83 +1,121 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_padding"
+    android:paddingRight="@dimen/activity_horizontal_padding"
+    android:paddingTop="@dimen/activity_vertical_padding"
+    android:paddingBottom="@dimen/activity_vertical_padding"
+    tools:context=".MainActivity">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/tug_of_war_icon_medium"
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
 
-        android:id="@+id/button"
-        android:onClick="onTugOfWarClicked"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/space"
-        android:layout_toStartOf="@+id/space" />
+        <TextView
+            android:id="@+id/appTitle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textSize="@dimen/app_title"
+            android:background="@drawable/wahoo_ware_icon_title"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/clear_cut_icon_medium"
-        android:id="@+id/button2"
-        android:onClick="onClearCutClicked"
-        android:layout_toEndOf="@+id/space"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/space" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="125dp"
+            android:orientation="horizontal">
 
-    <Space
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:id="@+id/space"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+            <Button
+                android:id="@+id/selectTugOfWarButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:background="@drawable/tug_of_war_icon_medium"
+                android:onClick="onTugOfWarClicked" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="40sp"
-        android:text="Game Select"
-        android:id="@+id/textView5"
-        android:layout_above="@+id/button"
-        android:layout_centerHorizontal="true" />
+            <Button
+                android:id="@+id/selectClearCutChallengeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:background="@drawable/clear_cut_icon_medium"
+                android:onClick="onClearCutClicked" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Preferences"
-        android:id="@+id/button3"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="onPrefsClicked"/>
+        </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="25sp"
-        android:text="@string/tug_of_war"
-        android:id="@+id/textView6"
-        android:layout_below="@+id/button"
-        android:layout_alignRight="@+id/button"
-        android:layout_alignEnd="@+id/button" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="25sp"
-        android:text="@string/clear_cut_challenge"
-        android:id="@+id/textView7"
-        android:layout_below="@+id/button2"
-        android:layout_alignLeft="@+id/button2"
-        android:layout_alignStart="@+id/button2" />
+            <TextView
+                android:id="@+id/selectTugOfWarText"
+                android:width="240dp"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:text="@string/tug_of_war"
+                android:textSize="@dimen/game_title" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="100sp"
-        android:text="Minigames"
-        android:id="@+id/textView8"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+            <TextView
+                android:id="@+id/selectClearCutChallengeText"
+                android:width="240dp"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:text="@string/clear_cut_challenge"
+                android:textSize="@dimen/game_title" />
 
-</RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal">
+
+            <!--<Button-->
+                <!--android:id="@+id/selectColorSequenceButton"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@drawable/color_sequence_icon_medium"-->
+                <!--android:onClick="onColorSequenceClicked" />-->
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <!--<TextView-->
+                <!--android:id="@+id/selectColorSequenceText"-->
+                <!--android:width="240dp"-->
+                <!--android:gravity="center"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/color_sequence"-->
+                <!--android:textSize="@dimen/game_title" />-->
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/preferencesButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/com_facebook_blue"
+            android:textColor="#ffffff"
+            android:layout_gravity="center_horizontal"
+            android:onClick="onPrefsClicked"
+            android:text="@string/preferences"
+            android:textSize="@dimen/game_title" />
+    </LinearLayout>
+</LinearLayout>

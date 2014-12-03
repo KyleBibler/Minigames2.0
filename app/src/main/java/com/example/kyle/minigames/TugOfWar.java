@@ -28,18 +28,21 @@ public class TugOfWar extends GameActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tug_of_war);
         game = "Tug of War";
-        bluepoint = 17;
-        clicks = 0;
+
         score = (TextView) findViewById(R.id.scoreView);
         queue = new ArrayBlockingQueue<LightModel>(16);
         strip = (LightStrip) findViewById(R.id.strip);
         strip.createThread(queue);
 
-        restartGame();
+        initializeGame();
     }
 
     @Override
-    protected void restartGame() {
+    protected void pauseGame() {
+        return;
+    }
+
+    protected void initializeGame() {
         queue.clear();
         bluepoint = 17;
         clicks = 0;
@@ -56,7 +59,6 @@ public class TugOfWar extends GameActivity {
         if(stripActive) {
             startGameStrip(urlFull);
         }
-        //TODO LIGHT STRIP QUEUE GOES HERE
         queue.add(lights);
     }
 
@@ -109,7 +111,6 @@ public class TugOfWar extends GameActivity {
                 clicks = 0;
             }
         }
-        //TODO ADD LIGHTS TO QUEUE
         queue.add(lights);
     }
 

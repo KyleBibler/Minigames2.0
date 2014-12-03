@@ -61,22 +61,30 @@ public abstract class GameActivity extends Activity implements SensorEventListen
         }
     }
 
+    protected abstract void pauseGame();
+    protected abstract void initializeGame();
+
     private void checkCheat(double ax, double ay) {
         if((Math.abs(ax) >= 2.0 || (ay >= 1.0 || ay <= -3.0)) && !cheating) {
+            pauseGame();
             cheating = true;
             new AlertDialog.Builder(this)
                     .setTitle("Someone is Cheating")
                     .setMessage("Please level the device before you continue.")
-                    .setNeutralButton("Continue", new DialogInterface.OnClickListener() {
+                    .setNeutralButton("Continue (Restarts Game)", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             cheating = false;
+                            restartGame();
                         }
                     }).show();
+
+
         }
     }
 
     protected void gameOver(String playerName, int score) {
         final int finalScore = score;
+
         new AlertDialog.Builder(this)
                 .setTitle(playerName + " wins!")
                 .setMessage(playerName + " won with a score of: " + finalScore)
@@ -85,19 +93,20 @@ public abstract class GameActivity extends Activity implements SensorEventListen
                         shareOnFacebook(finalScore);
                     }
                 })
-                .setNegativeButton("Return to Game", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Restart Game", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        restartGame();
                         //returns to game
+                        restartGame();
                     }
                 }).show();
+
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        restartGame();
         uiHelper.onActivityResult(requestCode, resultCode, data, new FacebookDialog.Callback() {
+
             @Override
             public void onError(FacebookDialog.PendingCall pendingCall, Exception error, Bundle data) {
                 Log.e("Activity", String.format("Error: %s", error.toString()));
@@ -108,6 +117,7 @@ public abstract class GameActivity extends Activity implements SensorEventListen
                 Log.i("Activity", "Success!");
             }
         });
+        restartGame();
     }
 
     private void shareOnFacebook(int score) {
@@ -118,9 +128,10 @@ public abstract class GameActivity extends Activity implements SensorEventListen
         uiHelper.trackPendingDialogCall(shareDialog.present());
     }
 
-    protected abstract void restartGame();
-
-
+    protected void restartGame() {
+        finish();
+        startActivity(getIntent());
+    }
 
     @Override
     public void onSensorChanged(SensorEvent event) {

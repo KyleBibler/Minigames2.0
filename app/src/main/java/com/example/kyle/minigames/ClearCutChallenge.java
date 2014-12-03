@@ -1,5 +1,7 @@
 package com.example.kyle.minigames;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
@@ -64,7 +66,10 @@ public class ClearCutChallenge extends GameActivity {
             public void run() {
                 if(!gameStopped) {
                     updateLogs();
-                    handler.postDelayed(this, 250);
+                    handler.postDelayed(this, 350);
+                }
+                else {
+                    handler.removeCallbacks(this);
                 }
             }
         };
@@ -75,16 +80,22 @@ public class ClearCutChallenge extends GameActivity {
 
 
 //        handler.postDelayed(runnable, 3000); // 3 seconds to ready,set,go
-        restartGame();
+        initializeGame();
         // TODO ready, set, go message
         //put handler.postDelayed() in restart game
 
     }
 
     @Override
-    protected void restartGame() {
+    protected void pauseGame() {
+        queue.clear();
+        handler.removeCallbacks(runnable);
+    }
+
+    protected void initializeGame() {
         queue.clear();
         gameStopped = false;
+        strip.createThread(queue);
 
         player1Clicked = false;
         player2Clicked = false;
@@ -125,11 +136,20 @@ public class ClearCutChallenge extends GameActivity {
             startGameStrip(urlFull);
         }
 
-        handler.postDelayed(runnable, 0);
-
-        //Internal lights
 
         queue.add(lights);
+
+
+        new AlertDialog.Builder(this)
+                .setTitle("Prepare yourselves!")
+                .setMessage("Press the button to start the game (only when both players are ready).")
+                .setNeutralButton("Start Game in 3...", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        handler.postDelayed(runnable, 3000);
+                    }
+                }).show();
+
+        //Internal lights
     }
 
     public void startGameStrip(String url) {
@@ -137,6 +157,12 @@ public class ClearCutChallenge extends GameActivity {
         lights = new LightModel(lightValues, false);
         new ApiTask().execute(url, lights.serialize());
     }
+
+    public void onPause() {
+        super.onPause();
+        handler.removeCallbacks(runnable);
+    }
+
 
     public void onPlayer1Clicked(View view) {
         int score = 12 - Math.abs(player1Target - player1Log);
@@ -203,20 +229,18 @@ public class ClearCutChallenge extends GameActivity {
             player2Clicked = true;
         }
 
-        if (player1Clicked && player2Clicked) { // both players have attempted to chop the log
+
+        queue.add(lights);
+        if (player1Clicked && player2Clicked && !gameStopped) { // both players have attempted to chop the log
             // TODO game is over
+            handler.removeCallbacks(runnable);
+            gameStopped = true;
             String winner = (player1Score > player2Score) ? "Player 1" : "Player 2";
             int score = (player1Score > player2Score) ? player1Score : player2Score;
-            endGame(winner, score);
+            gameOver(winner, score);
             //restartGame();
         }
-        queue.add(lights);
-    }
 
-    private void endGame(String winner, int score) {
-        handler.removeCallbacks(runnable);
-        gameStopped = true;
-        gameOver(winner, score);
     }
 
     @Override
