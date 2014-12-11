@@ -73,11 +73,6 @@ public class MainActivity extends Activity {
         startActivity(i);
     }
 
-    public void onColorSequenceClicked(View view) {
-        Intent i = new Intent(this, ColorSequence.class);
-        startActivity(i);
-    }
-
     public void onPrefsClicked(View view) {
         Intent i = new Intent(this, Preferences.class);
         startActivity(i);

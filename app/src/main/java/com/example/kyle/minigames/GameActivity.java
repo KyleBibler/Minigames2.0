@@ -50,7 +50,7 @@ public abstract class GameActivity extends Activity implements SensorEventListen
         if (sharedPreferences.contains(IP))
         {
             url = sharedPreferences.getString(IP, "");
-            urlFull = "http//:" + url + "/rpi";
+            urlFull = "http://" + url + "/rpi";
             stripActive = true;
         }
 

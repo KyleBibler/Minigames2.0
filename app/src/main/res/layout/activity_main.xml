@@ -25,14 +25,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="125dp"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/selectTugOfWarButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_weight="0.5"
                 android:background="@drawable/tug_of_war_icon_medium"
                 android:onClick="onTugOfWarClicked" />
 
@@ -40,6 +39,7 @@
                 android:id="@+id/selectClearCutChallengeButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.5"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:background="@drawable/clear_cut_icon_medium"
                 android:onClick="onClearCutClicked" />
@@ -54,23 +54,17 @@
 
             <TextView
                 android:id="@+id/selectTugOfWarText"
-                android:width="240dp"
                 android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/activity_horizontal_margin"
-                android:text="@string/tug_of_war"
-                android:textSize="@dimen/game_title" />
+                android:text="@string/tug_of_war" />
 
             <TextView
                 android:id="@+id/selectClearCutChallengeText"
-                android:width="240dp"
                 android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/activity_horizontal_margin"
-                android:text="@string/clear_cut_challenge"
-                android:textSize="@dimen/game_title" />
+                android:text="@string/clear_cut_challenge"/>
 
         </LinearLayout>
 
@@ -81,13 +75,6 @@
             android:layout_marginTop="25dp"
             android:orientation="horizontal">
 
-            <!--<Button-->
-                <!--android:id="@+id/selectColorSequenceButton"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:background="@drawable/color_sequence_icon_medium"-->
-                <!--android:onClick="onColorSequenceClicked" />-->
-
         </LinearLayout>
 
         <LinearLayout
@@ -96,14 +83,6 @@
             android:layout_gravity="center_horizontal"
             android:orientation="horizontal">
 
-            <!--<TextView-->
-                <!--android:id="@+id/selectColorSequenceText"-->
-                <!--android:width="240dp"-->
-                <!--android:gravity="center"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="@string/color_sequence"-->
-                <!--android:textSize="@dimen/game_title" />-->
 
         </LinearLayout>
 

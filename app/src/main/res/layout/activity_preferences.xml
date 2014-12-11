@@ -9,7 +9,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="100dp"
         android:text="@string/preferences"
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
@@ -28,7 +27,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30dp"
         android:text="@string/http"
         android:id="@+id/textView2"
         android:layout_alignBottom="@+id/setIp"
@@ -38,7 +36,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30dp"
         android:text="@string/rpi"
         android:id="@+id/textView3"
         android:layout_alignBottom="@+id/setIp"
@@ -48,7 +45,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="40dp"
         android:text="@string/set_ip_address"
         android:id="@+id/textView4"
         android:layout_above="@+id/setIp"
@@ -73,5 +69,15 @@
         android:layout_gravity="center_horizontal"
         android:onClick="onLogOutClicked"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Raspberry Pi Light Strip Integration"
+        android:id="@+id/textView5"
+        android:layout_above="@+id/textView4"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>
